@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baihe.dao.SmsDao">
+
+    <select id="findByCode" resultType="com.baihe.vo.SmsVo">
+        select `sms`.* from `sms`
+        where 1 = 1
+        <if test="code != null and code != '' and code != 'all'">
+            and `sms`.`code` like concat('%', #{code}, '%')
+        </if>
+        order by `sms`.`time` desc
+    </select>
+
+    <select id="findByCodeone" resultType="com.baihe.entity.Sms">
+        select `sms`.* from `sms`
+        where 1 = 1
+        <if test="code != null and code != ''">
+            and `sms`.`code` = #{code}
+        </if>
+        order by `sms`.`time` desc limit 1
+    </select>
+
+    <select id="findByPhoneone" resultType="com.baihe.entity.Sms">
+        select `sms`.* from `sms`
+        where 1 = 1
+        <if test="phone != null and phone != ''">
+            and `sms`.`phone` = #{phone} and `sms`.`type` = #{type}
+        </if>
+        order by `sms`.`time` desc limit 1
+    </select>
+
+</mapper>
