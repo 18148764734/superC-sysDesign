@@ -30,7 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-@Api(value = "登录注册模块")
+@Api(value = "登录注册模块  拦截器返回的登录")
 @RestController
 @RequestMapping("/api")//接口地址开头，后面方法都要加上/api,如http://127.0.0.1/api/signup
 public class AccountController {
@@ -59,7 +59,8 @@ public class AccountController {
 
 
     @ApiOperation(value = "重置密码(首先得验证码通过)",notes = " \"需要的参数：user的phone和通过发送验证码接口收到的验证码，需要的新密码（password），以及user的name \" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 " +
+            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 \n" +
+            "模板：{\"phone\":\"18219413000\",\"name\":\"lamb\",\"code\":\"72331\",\"password\":\"1234568\"}  这边的code是通过发送（resetPassword类型）验证码收取到了code"+
             " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取" +
             "密码不需要与之前的密码相同，相同报错 code 2002  msg为密码与原密码相同\"")
     @PostMapping("/resetpassword")
@@ -81,7 +82,8 @@ public class AccountController {
 
 
     @ApiOperation(value = "修改注册手机号模板",notes = " \"需要的参数：user的phone和通过发送验证码接口收到的验证码，需要的新电话号码（phone），以及user的name和password \" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 " +
+            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 \n" +
+            "模板：{\"phone\":\"18219413000\",\"name\":\"lamb\",\"code\":\"81531\",\"password\":\"1234567\"}  这边的code是通过发送（updatePhone类型）验证码收取到了code"+
             " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取" +
             "电话号码不能与之前的相同，相同报错 code 1001  msg为手机号码已存在\"")
     @PostMapping("/updatephone")
@@ -109,7 +111,8 @@ public class AccountController {
      * 失败返回 如 {"code":"2002","msg":"账号或密码错误","data":null}
      */
 
-    @ApiOperation(value = "用户登录,成功即返回token信息",notes = "需要的参数：user的name和password " +
+    @ApiOperation(value = "用户登录,成功即返回token信息",notes = "需要的参数：user的name和password\n " +
+            "模板 {\"name\":\"Lamb\",\"password\":\"20020129\"}"+
             "返回值：--成功->code为0，msg为成功  data为user的信息 --失败->code为2002, msg为账号或密码错误，data为token信息"   )
     @PostMapping("/login")
     public Result<String> login(@RequestBody User user) {
@@ -133,7 +136,8 @@ public class AccountController {
      * 失败返回 如 {"code":"401","msg":"验证码错误","data":null}
      */
     @ApiOperation(value = "通过手机验证码登录，成功返回token信息",notes = " \"需要的参数：user的phone和通过发送验证码接口收到的验证码 \" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的token信息 " +
+            "            \"返回值：--成功->code为0，msg为成功 ，data为user的token信息\n " +
+            "模板：{\"phone\":\"15119380977\",\"code\":\"1111\"}"+
             " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取\"")
     @PostMapping("/loginsms")
     public Result<String> loginsms(@RequestBody User user) {
@@ -183,7 +187,8 @@ public class AccountController {
      * 失败返回 如 {"code":"401","msg":"验证码过期，请重新获取","data":null}
      */
     @ApiOperation(value = "用户注册模块，输入用户信息进行注册",notes = " \"需要的参数：user实体类的phone，code,type,name,password,newPassword(注册的时候是确认的密码),sex,level \" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 " +
+            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息\n " +
+            "模板：{\"phone\":\"15119380977\",\"code\":\"1111\",\"type\":\"register\",\"name\":\"1234\",\"password\":\"123456\",\"sex\":\"男\",\"level\":1}"+
             " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取\"")
     @PostMapping("/signup")
     public Result<User> register(@RequestBody User user) {
@@ -233,8 +238,9 @@ public class AccountController {
      * 成功返回 code=0 为成功，其他为失败 {"code":"0","msg":"成功","data":null}
      * 失败返回 无
      */
-    @ApiOperation(value = "用户退出（删除redis里的token）",notes = " \"需要的参数：user的phone 和newPassword（token）\" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 " +
+    @ApiOperation(value = "用户退出（删除redis里的token）得把token放在请求头！",notes = " \"需要的参数：user的phone 和newPassword（token）\" +\n" +
+            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 \n" +
+            "模板：{\"newPassword\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1NiIsImV4cCI6MTY3MzU5NDA0MywidXNlcm5hbWUiOiIxMjM0In0.vxLsRSsCpiAoUzXtlGzo2peqKgQLCKBWpAx0H2lbWZs\",\"phone\": \"15119380977\"}  newPassword即为token（登录以后返回的token）"+
             " --失败->code为401, data为null，msg为未登录，条件为：电话号码为空；参数为空；newPassword（token）为空\"")
     @PostMapping("/logout")
     public Result<String> logout(HttpServletRequest request) {
@@ -256,7 +262,8 @@ public class AccountController {
      * 失败返回 如 {"code":"401","msg":"未登录","data":null}
      */
     @ApiOperation(value = "判断用户是否登录(并且获取用户信息)",notes = " \"需要的参数：User实体类的phone 和newPassword\" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 " +
+            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息\n " +
+            "模板：{\"newPassword\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1NiIsImV4cCI6MTY3MzU5NDA0MywidXNlcm5hbWUiOiIxMjM0In0.vxLsRSsCpiAoUzXtlGzo2peqKgQLCKBWpAx0H2lbWZs\",\"phone\": \"15119380977\"}"+
             " --失败->code为401, data为null，msg为未登录，条件为：电话号码为空；参数为空；newPassword（token）为空\"")
     @PostMapping("/auth")
     public Result getAuth(@RequestBody User user) {
@@ -283,6 +290,8 @@ public class AccountController {
      */
     @ApiOperation(value = "获取验证码",notes = " \"需要的参数：Sms实体类的phone 和type(注意手机号码的格式)" +
             "type：login（登录），register（注册），resetPassword（重置密码），updatePhone（更换注册的手机号码）\" +\n" +
+            "模板：{\"phone\":\"15119380977\",\"type\":\"login\"}  type只有四种类型才是会发送验证码的：login：登录；  register：注册；  resetPassword：重置密码；  updatePhone：修改注册的手机号码；\n" +
+            "每次调用对应接口的所使用到的code都是需要使用对应的类型短信验证码"+
             "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 " +
             " --失败->code为401, data为null，msg为参数错误")
     @PostMapping("send")
@@ -306,21 +315,39 @@ public class AccountController {
         //限制验证码发送
         Sms smsInfo = smsService.findByPhone(phone,type);
         if (smsInfo != null) {
-            if(smsInfo.getPhone().equals(phone)) {
-                Calendar myTime = Calendar.getInstance();
-                myTime.add(Calendar.SECOND,-20);
-                Date beforeM = myTime.getTime();
-                String beforeM1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(beforeM);
-                if(beforeM1.compareTo(smsInfo.getTime())<0) {
-                   return Result.error("401", "已经发送过了，请稍后再试");
+            if (type.equals("resetPassword")){
+                if(smsInfo.getPhone().equals(phone)) {
+                    Calendar myTime = Calendar.getInstance();
+                    myTime.add(Calendar.SECOND,-120);
+                    Date beforeM = myTime.getTime();
+                    String beforeM1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(beforeM);
+                    if(beforeM1.compareTo(smsInfo.getTime())<0) {
+                        return Result.error("401", "已经发送过了，请稍后再试");
+                    }
+                }
+            }else {
+                if(smsInfo.getPhone().equals(phone)) {
+                    Calendar myTime = Calendar.getInstance();
+                    myTime.add(Calendar.SECOND,-30);
+                    Date beforeM = myTime.getTime();
+                    String beforeM1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(beforeM);
+                    if(beforeM1.compareTo(smsInfo.getTime())<0) {
+                        return Result.error("401", "已经发送过了，请稍后再试");
+                    }
                 }
             }
+
         }
         int code = RandomUtil.randomInt(10000, 99999);
         String code1 = String.valueOf(code);
         //request.getSession().setAttribute("smscode",code);
 
-        redistp.opsForValue().set(type,code1,120, TimeUnit.DAYS);
+        if (type.equals("resetPassword")){
+            redistp.opsForValue().set(type,code1,10, TimeUnit.MINUTES);
+        }else {
+            redistp.opsForValue().set(type,code1,2, TimeUnit.MINUTES);
+        }
+
 
         //System.out.println(redistp.opsForValue().get(phone));
         Sms info = new Sms();

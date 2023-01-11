@@ -50,6 +50,8 @@ public class SmsUtil1 {
      * 发送短信的方法
      * @param phone：接受短信的手机号码
      * @param code：模板所需的参数
+     * @param select ：选择需要的模板
+     *               1 2 3 4 各对应着注册  登录  重置密码 修改手机号码的模板
      * @return
      */
     public String send(String phone,String code,Integer select){

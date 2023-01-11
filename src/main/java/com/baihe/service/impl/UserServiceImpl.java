@@ -42,7 +42,9 @@ public class UserServiceImpl implements UserService {
         } else {
             user.setPassword(SecureUtil.md5(user.getPassword()));
         }
+        //设置日期格式
         user.setUserdate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        //设置id为UUID的随机字符串
         user.setId(this.getUUID());
         userInfoDao.insertSelective(user);
         return user;
@@ -93,6 +95,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    //UUID工具类
     public String getUUID()
     {
         String uuid = UUID.randomUUID().toString().replace("-", "");
@@ -110,14 +113,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updatePassword(User user) {
+        //先查询数据库是否有该用户
         UserVo user1 = userInfoDao.findByUsername(user.getName());
         if (user1!=null){
-            if (SecureUtil.md5(user.getPassword()).equalsIgnoreCase(user1.getPassword())) {
+            //重置的密码与之前的相同也报错
+            if (SecureUtil.md5(user.getPassword()).equalsIgnoreCase(user1.getPassword())) {//进行md5解密  来对比密码是否一致
                 throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
             }
+            //重置的密码进行md5加密
             user.setPassword(SecureUtil.md5(user.getPassword()));
             userInfoDao.updatePassword(user);
         }else {
+            //没有该用户直接报错
             throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
         }
 
@@ -126,17 +133,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateRegisterPhone(User user) {
+        //通过传入的用户姓名查找对应的用户
         UserVo user1 = userInfoDao.findByUsername(user.getName());
         if (user1!=null){
+            //检阅手机号码是否存在
             int count = userInfoDao.checkRepeat("phone", user.getPhone(), null);
             if (count>0){
+                //存在就报错
                 throw new CustomException("1001", "手机号\"" + user.getPhone() + "\"已存在");
             }
+            //查看密码是不是符合用户设置的密码 不符合就报错
             if (!SecureUtil.md5(user.getPassword()).equalsIgnoreCase(user1.getPassword())) {
                 throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
             }
             userInfoDao.updateRegisterPhone(user);
         }else {
+            //用户不存在就报错
             throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
         }
 
