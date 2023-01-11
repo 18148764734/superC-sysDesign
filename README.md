@@ -16,12 +16,12 @@ url：http://localhost:8080/api/send
 }
 
 ## 重置密码
-url：http://localhost:8080/api/resetPassword
+url：http://localhost:8080/api/resetpassword
 参数（json）：{"phone":"18219413000","name":"lamb","code":"72331","password":"1234568"}  这边的code是通过发送（resetPassword类型）验证码收取到了code
 返回的是用户的信息
 
 ## 修改注册的手机号码
-url：http://localhost:8080/api/updatePhone
+url：http://localhost:8080/api/updatephone
 参数（json）：{"phone":"18219413000","name":"lamb","code":"81531","password":"1234567"}  这边的code是通过发送（updatePhone类型）验证码收取到了code
 返回的是用户的信息
 

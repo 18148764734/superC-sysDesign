@@ -23,3 +23,11 @@
 2023-01-11 13:12:19.601  INFO 12416 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
 2023-01-11 13:12:19.747  INFO 12416 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 2023-01-11 13:12:19.749  INFO 12416 --- [main] com.baihe.Application                    : Started Application in 4.033 seconds (JVM running for 5.221)
+2023-01-11 13:13:13.700  INFO 12416 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-01-11 13:13:13.700  INFO 12416 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-01-11 13:13:13.705  INFO 12416 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2023-01-11 13:13:13.777  INFO 12416 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-11 13:13:13.866  INFO 12416 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-11 13:55:50.678  INFO 12416 --- [Thread-7] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-01-11 13:55:50.680  INFO 12416 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-11 13:55:50.682  INFO 12416 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
