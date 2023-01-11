@@ -5,6 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+/**
+ * 重置密码模板
+ */
 @Configuration
 @PropertySource(value = "classpath:sms3.properties",encoding = "UTF-8")
 @ConfigurationProperties(prefix = "sms3")

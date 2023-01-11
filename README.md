@@ -1,6 +1,10 @@
 http://localhost:8080/main/index.html
 /static 目录下为测试页面
 
+sms1,2,3,4对应的是注册  登录  重置密码  修改注册手机号码的模板
+SmsConfig1，2,3,4 对应的是注册  登录  重置密码  修改注册手机号码的配置文件
+
+
 ## swagger文档连接
 http://localhost:8080/swagger-ui.html#/
 

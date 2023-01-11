@@ -315,27 +315,15 @@ public class AccountController {
         //限制验证码发送
         Sms smsInfo = smsService.findByPhone(phone,type);
         if (smsInfo != null) {
-            if (type.equals("resetPassword")){
-                if(smsInfo.getPhone().equals(phone)) {
-                    Calendar myTime = Calendar.getInstance();
-                    myTime.add(Calendar.SECOND,-120);
-                    Date beforeM = myTime.getTime();
-                    String beforeM1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(beforeM);
-                    if(beforeM1.compareTo(smsInfo.getTime())<0) {
-                        return Result.error("401", "已经发送过了，请稍后再试");
-                    }
-                }
-            }else {
-                if(smsInfo.getPhone().equals(phone)) {
-                    Calendar myTime = Calendar.getInstance();
-                    myTime.add(Calendar.SECOND,-30);
-                    Date beforeM = myTime.getTime();
-                    String beforeM1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(beforeM);
-                    if(beforeM1.compareTo(smsInfo.getTime())<0) {
-                        return Result.error("401", "已经发送过了，请稍后再试");
-                    }
-                }
+            if(smsInfo.getPhone().equals(phone)) {
+            Calendar myTime = Calendar.getInstance();
+            myTime.add(Calendar.SECOND,-120);
+            Date beforeM = myTime.getTime();
+            String beforeM1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(beforeM);
+            if(beforeM1.compareTo(smsInfo.getTime())<0) {
+                return Result.error("401", "已经发送过了，请稍后再试");
             }
+          }
 
         }
         int code = RandomUtil.randomInt(10000, 99999);
@@ -345,7 +333,7 @@ public class AccountController {
         if (type.equals("resetPassword")){
             redistp.opsForValue().set(type,code1,10, TimeUnit.MINUTES);
         }else {
-            redistp.opsForValue().set(type,code1,2, TimeUnit.MINUTES);
+            redistp.opsForValue().set(type,code1,5, TimeUnit.MINUTES);
         }
 
 
