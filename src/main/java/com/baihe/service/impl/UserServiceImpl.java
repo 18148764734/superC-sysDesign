@@ -50,6 +50,23 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public void checkPhone(User user) {
+        //通过传入的用户姓名查找对应的用户
+        UserVo user1 = userInfoDao.findByUsername(user.getName());
+        if (user1!=null){
+            //检阅手机号码是否存在
+            int count = userInfoDao.checkRepeat("phone", user.getPhone(), null);
+            if (count==0){
+                //存在就报错
+                throw new CustomException("1001", "手机号\"" + user.getPhone() + "\"不存在");
+            }
+        }else {
+            //用户不存在就报错
+            throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
+        }
+    }
+
     public void delete(Long id) {
         userInfoDao.deleteByPrimaryKey(id);
     }

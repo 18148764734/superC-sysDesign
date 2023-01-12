@@ -111,6 +111,33 @@ public class AccountController {
      * 失败返回 如 {"code":"2002","msg":"账号或密码错误","data":null}
      */
 
+
+    @ApiOperation(value = "通过手机发送验证码验证，成功返回msg ：ok",notes = " \"需要的参数：user的phone和通过发送验证码（updatePhone类型）接口收到的验证码，user的name \" +\n" +
+            "            \"返回值：--成功->code为0，msg为ok ，data为null\n " +
+            "模板：{\"phone\":\"15119380977\",\"code\":\"77610\",\"name\":\"lamb\"}"+
+            " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取。\n" +
+            "如果手机号码不存在  也失败  报错code为1001  msg为：手机号\\\"*****\\\"不存在"+"\"")
+    @PostMapping("/checkphone")
+    public Result<String> checkPhone(@RequestBody User user) {
+
+        userInfoService.checkPhone(user);
+        String phone = user.getPhone();
+
+        if (phone.equals("")) {
+            return Result.error("401", "参数错误");
+        }
+
+        if(user.getCode().equals("")){
+            return Result.error("401", "请输入验证码");
+        }
+        if(!user.getCode().equals(redistp.opsForValue().get("updatePhone"))){
+            return Result.error("401", "验证码过期，请重新获取");
+        }
+        return Result.success("ok");
+    }
+
+
+
     @ApiOperation(value = "用户登录,成功即返回token信息",notes = "需要的参数：user的name和password\n " +
             "模板 {\"name\":\"Lamb\",\"password\":\"20020129\"}"+
             "返回值：--成功->code为0，msg为成功  data为user的信息 --失败->code为2002, msg为账号或密码错误，data为token信息"   )

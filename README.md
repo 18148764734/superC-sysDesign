@@ -8,6 +8,18 @@ SmsConfig1，2,3,4 对应的是注册  登录  重置密码  修改注册手机�
 ## swagger文档连接
 http://localhost:8080/swagger-ui.html#/
 
+## 验证手机号码
+url：http://localhost:8080/api/checkphone
+参数（json）：{"phone":"15119380977","code":"77610","name":"lamb"}  code是type为updatePhone类型的的手机验证码
+每次调用对应接口的所使用到的code都是需要使用对应的类型短信验证码
+返回：
+{
+"code": "0",
+"msg": "成功",
+"data": null
+}
+
+
 ## 获取验证码
 url：http://localhost:8080/api/send
 参数（json）：{"phone":"15119380977","type":"login"}  type只有四种类型才是会发送验证码的：login：登录；  register：注册；  resetPassword：重置密码；  updatePhone：修改注册的手机号码；

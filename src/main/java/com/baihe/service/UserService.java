@@ -23,6 +23,8 @@ public interface UserService {
 
     User add(User user) ;
 
+    void checkPhone(User user);
+
     void delete(Long id);
 
     void update(User user);
