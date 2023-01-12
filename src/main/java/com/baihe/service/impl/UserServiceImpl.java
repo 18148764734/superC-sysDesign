@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
             //检阅手机号码是否存在
             int count = userInfoDao.checkRepeat("phone", user.getPhone(), null);
             if (count==0){
-                //存在就报错
+                //不存在就报错
                 throw new CustomException("1001", "手机号\"" + user.getPhone() + "\"不存在");
             }
         }else {
