@@ -102,14 +102,7 @@ public class AccountController {
         return Result.success(user);
     }
 
-    /**
-     * 用户名登陆
-     * 地址：http://网址/api/login
-     * 方法 post
-     * 参数json格式 如 {"phone":"","code":"","type":"login","name":"user01","password":"user111","level":null}，其中name为用户名,password为密码，其他按例子填写
-     * 成功返回 code=0 为成功，其他为失败 {"code":"0","msg":"成功","data":{"password":"111111","newPassword":null,"userinfo":null,"sex":"男","age":null,"region":null,"phone":"15927614001","address":null,"userdate":"2022-12-18 23:53:06","identity":null,"level":1,"code":"13156","name":"user01","id":1}}
-     * 失败返回 如 {"code":"2002","msg":"账号或密码错误","data":null}
-     */
+
 
 
     @ApiOperation(value = "通过手机发送验证码验证，成功返回msg ：ok",notes = " \"需要的参数：user的phone和通过发送验证码（updatePhone类型）接口收到的验证码，user的name \" +\n" +
@@ -136,11 +129,18 @@ public class AccountController {
         return Result.success("ok");
     }
 
-
+    /**
+     * 用户名登陆
+     * 地址：http://网址/api/login
+     * 方法 post
+     * 参数json格式 如 {"phone":"","code":"","type":"login","name":"user01","password":"user111","level":null}，其中name为用户名,password为密码，其他按例子填写
+     * 成功返回 code=0 为成功，其他为失败 {"code":"0","msg":"成功","data":{"password":"111111","newPassword":null,"userinfo":null,"sex":"男","age":null,"region":null,"phone":"15927614001","address":null,"userdate":"2022-12-18 23:53:06","identity":null,"level":1,"code":"13156","name":"user01","id":1}}
+     * 失败返回 如 {"code":"2002","msg":"账号或密码错误","data":null}
+     */
 
     @ApiOperation(value = "用户登录,成功即返回token信息",notes = "需要的参数：user的name和password\n " +
             "模板 {\"name\":\"Lamb\",\"password\":\"20020129\"}"+
-            "返回值：--成功->code为0，msg为成功  data为user的信息 --失败->code为2002, msg为账号或密码错误，data为token信息"   )
+            "返回值：--成功->code为0，msg为成功  data为user的信息 ,还有username为user的name --失败->code为2002, msg为账号或密码错误，data为token信息"   )
     @PostMapping("/login")
     public Result<String> login(@RequestBody User user) {
         if (StrUtil.isBlank(user.getName()) || StrUtil.isBlank(user.getPassword())) {
@@ -151,7 +151,8 @@ public class AccountController {
 
         //request.getSession().setAttribute("user", login);
         redistp.opsForValue().set("l"+login.getPhone(),login.getNewPassword(),30, TimeUnit.DAYS);//保存登陆状态1个月
-        return Result.success(login.getNewPassword());
+
+        return Result.success(login.getNewPassword(),login.getName());
     }
 
     /**

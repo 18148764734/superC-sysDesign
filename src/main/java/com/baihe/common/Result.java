@@ -5,6 +5,7 @@ public class Result<T> {
     private String msg;
     private T data;
 
+    private String username;
     private Result(T data) {
         this.data = data;
     }
@@ -26,6 +27,14 @@ public class Result<T> {
         return tResult;
     }
 
+    public static <T> Result<T> success(T data,String username) {
+        Result<T> tResult = new Result<>(data);
+        tResult.setCode(ResultCode.SUCCESS.code);
+        tResult.setMsg(ResultCode.SUCCESS.msg);
+        tResult.setUsername(username);
+        return tResult;
+    }
+
     public static Result error() {
         Result tResult = new Result<>();
         tResult.setCode(ResultCode.ERROR.code);
@@ -38,6 +47,14 @@ public class Result<T> {
         tResult.setCode(code);
         tResult.setMsg(msg);
         return tResult;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCode() {
