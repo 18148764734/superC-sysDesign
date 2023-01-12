@@ -30,7 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-@Api(value = "登录注册模块  拦截器返回的登录")
+@Api(value = "登录注册模块  拦截器返回的登录地址：/end/page/login.html")
 @RestController
 @RequestMapping("/api")//接口地址开头，后面方法都要加上/api,如http://127.0.0.1/api/signup
 public class AccountController {
