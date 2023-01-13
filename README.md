@@ -30,7 +30,7 @@ url：http://localhost:8080/api/send
 
 ## 重置密码
 url：http://localhost:8080/api/resetpassword
-参数（json）：{"phone":"18219413000","name":"lamb","code":"72331","password":"1234568"}  这边的code是通过发送（resetPassword类型）验证码收取到了code
+参数（json）：{"phone":"15119380977","code":"88876","password":"12345678"}  这边的code是通过发送（resetPassword类型）验证码收取到了code
 返回的是用户的信息
 
 ## 修改注册的手机号码
@@ -66,7 +66,7 @@ url:http://localhost:8080/api/login
 
 ## 用户退出
 url：http://localhost:8080/api/logout
-参数：{"newPassword": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1NiIsImV4cCI6MTY3MzU5NDA0MywidXNlcm5hbWUiOiIxMjM0In0.vxLsRSsCpiAoUzXtlGzo2peqKgQLCKBWpAx0H2lbWZs","phone": "15119380977"}  newPassword即为token（登录以后返回的token）token得放请求头
+参数：{"newPassword": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1NiIsImV4cCI6MTY3MzU5NDA0MywidXNlcm5hbWUiOiIxMjM0In0.vxLsRSsCpiAoUzXtlGzo2peqKgQLCKBWpAx0H2lbWZs"}  newPassword即为token（登录以后返回的token）token得放请求头
 {
 "code": "0",
 "msg": "成功",

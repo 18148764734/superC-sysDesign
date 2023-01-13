@@ -58,9 +58,9 @@ public class AccountController {
     private StringRedisTemplate redistp;
 
 
-    @ApiOperation(value = "重置密码(首先得验证码通过)",notes = " \"需要的参数：user的phone和通过发送验证码接口收到的验证码，需要的新密码（password），以及user的name \" +\n" +
+    @ApiOperation(value = "重置密码(首先得验证码通过)",notes = " \"需要的参数：user的phone和通过发送验证码接口收到的验证码，需要的新密码（password） \" +\n" +
             "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 \n" +
-            "模板：{\"phone\":\"18219413000\",\"name\":\"lamb\",\"code\":\"72331\",\"password\":\"1234568\"}  这边的code是通过发送（resetPassword类型）验证码收取到了code"+
+            "模板：{\"phone\":\"15119380977\",\"code\":\"88876\",\"password\":\"12345678\"}   这边的code是通过发送（resetPassword类型）验证码收取到了code"+
             " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取" +
             "密码不需要与之前的密码相同，相同报错 code 2002  msg为密码与原密码相同\"")
     @PostMapping("/resetpassword")
@@ -268,7 +268,7 @@ public class AccountController {
      */
     @ApiOperation(value = "用户退出（删除redis里的token）得把token放在请求头！",notes = " \"需要的参数：user的phone 和newPassword（token）\" +\n" +
             "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 \n" +
-            "模板：{\"newPassword\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1NiIsImV4cCI6MTY3MzU5NDA0MywidXNlcm5hbWUiOiIxMjM0In0.vxLsRSsCpiAoUzXtlGzo2peqKgQLCKBWpAx0H2lbWZs\",\"phone\": \"15119380977\"}  newPassword即为token（登录以后返回的token）"+
+            "模板：{\"newPassword\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1NjciLCJleHAiOjE2NzM3NjUzNDIsInVzZXJuYW1lIjoiMTIzNCJ9.OS87ol2X64kdkJVzvA8RWL5QEnKOdv0HzjWA8Di3VAs\"} newPassword即为token（登录以后返回的token）"+
             " --失败->code为401, data为null，msg为未登录，条件为：电话号码为空；参数为空；newPassword（token）为空\"")
     @PostMapping("/logout")
     public Result<String> logout(HttpServletRequest request) {

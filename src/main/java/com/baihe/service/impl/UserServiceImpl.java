@@ -131,15 +131,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePassword(User user) {
         //先查询数据库是否有该用户
-        UserVo user1 = userInfoDao.findByUsername(user.getName());
+        User user1 = userInfoDao.findByUserPhone(user.getPhone());
         if (user1!=null){
             //重置的密码与之前的相同也报错
-            if (SecureUtil.md5(user.getPassword()).equalsIgnoreCase(user1.getPassword())) {//进行md5解密  来对比密码是否一致
+            if (!SecureUtil.md5(user.getPassword()).equalsIgnoreCase(user1.getPassword())) {//进行md5解密  来对比密码是否一致
+                user.setPassword(SecureUtil.md5(user.getPassword()));
+                userInfoDao.updatePassword(user);
+            }else {
                 throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
             }
             //重置的密码进行md5加密
-            user.setPassword(SecureUtil.md5(user.getPassword()));
-            userInfoDao.updatePassword(user);
+
         }else {
             //没有该用户直接报错
             throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
@@ -159,6 +161,7 @@ public class UserServiceImpl implements UserService {
                 //存在就报错
                 throw new CustomException("1001", "手机号\"" + user.getPhone() + "\"已存在");
             }
+            boolean b=!SecureUtil.md5(user.getPassword()).equalsIgnoreCase(user1.getPassword());
             //查看密码是不是符合用户设置的密码 不符合就报错
             if (!SecureUtil.md5(user.getPassword()).equalsIgnoreCase(user1.getPassword())) {
                 throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);

@@ -20,6 +20,8 @@ public interface UserDao extends Mapper<User> {
     UserVo findByPhone(String phone);
     Integer count();
 
+    @Select("select *from user where phone=#{phone}")
+    User findByUserPhone(String phone);
     @Transactional
     @Update("update user set password=#{password} where username=#{name}")
     Integer updatePassword(User user);
