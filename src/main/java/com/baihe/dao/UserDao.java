@@ -23,7 +23,7 @@ public interface UserDao extends Mapper<User> {
     @Select("select *from user where phone=#{phone}")
     User findByUserPhone(String phone);
     @Transactional
-    @Update("update user set password=#{password} where username=#{name}")
+    @Update("update user set password=#{password} where phone=#{phone}")
     Integer updatePassword(User user);
 
     @Transactional

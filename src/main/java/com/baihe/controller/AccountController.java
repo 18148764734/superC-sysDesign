@@ -62,7 +62,8 @@ public class AccountController {
             "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 \n" +
             "模板：{\"phone\":\"15119380977\",\"code\":\"88876\",\"password\":\"12345678\"}   这边的code是通过发送（resetPassword类型）验证码收取到了code"+
             " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取" +
-            "密码不需要与之前的密码相同，相同报错 code 2002  msg为密码与原密码相同\"")
+            "密码不需要与之前的密码相同，相同报错 code 2006  msg为不可与原密码相同" +
+            "如果该手机号码数据不存在，报错code 2003 msg为 未找到该用户\"")
     @PostMapping("/resetpassword")
     public Result<User> resetPassword(@RequestBody User user){
         if (user.getPhone().equals("")) {

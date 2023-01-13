@@ -135,16 +135,16 @@ public class UserServiceImpl implements UserService {
         if (user1!=null){
             //重置的密码与之前的相同也报错
             if (!SecureUtil.md5(user.getPassword()).equalsIgnoreCase(user1.getPassword())) {//进行md5解密  来对比密码是否一致
+                //重置的密码进行md5加密
                 user.setPassword(SecureUtil.md5(user.getPassword()));
                 userInfoDao.updatePassword(user);
             }else {
-                throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
+                throw new CustomException(ResultCode.PARAM_PASSWORD_UPDATE_ERROR);
             }
-            //重置的密码进行md5加密
 
         }else {
             //没有该用户直接报错
-            throw new CustomException(ResultCode.USER_ACCOUNT_ERROR);
+            throw new CustomException(ResultCode.USER_NOT_EXIST_ERROR);
         }
 
 
