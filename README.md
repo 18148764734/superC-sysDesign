@@ -6,6 +6,7 @@ SmsConfig1，2,3,4 对应的是注册  登录  重置密码  修改注册手机�
 http://localhost:8080/swagger-ui.html#/
 
 ## 验证手机号码
+方式：post
 url：http://localhost:8080/api/checkphone
 参数（json）：{"phone":"15119380977","code":"77610","name":"lamb"}  code是type为updatePhone类型的的手机验证码
 每次调用对应接口的所使用到的code都是需要使用对应的类型短信验证码
@@ -18,6 +19,7 @@ url：http://localhost:8080/api/checkphone
 
 
 ## 获取验证码
+方式：post
 url：http://localhost:8080/api/send
 参数（json）：{"phone":"15119380977","type":"login"}  type只有四种类型才是会发送验证码的：login：登录；  register：注册；  resetPassword：重置密码；  updatePhone：修改注册的手机号码；
 每次调用对应接口的所使用到的code都是需要使用对应的类型短信验证码
@@ -29,16 +31,19 @@ url：http://localhost:8080/api/send
 }
 
 ## 重置密码
+方式：post
 url：http://localhost:8080/api/resetpassword
 参数（json）：{"phone":"15119380977","code":"88876","password":"12345678"}  这边的code是通过发送（resetPassword类型）验证码收取到了code
 返回的是用户的信息
 
 ## 修改注册的手机号码
+方式：post
 url：http://localhost:8080/api/updatephone
 参数（json）：{"phone":"18219413000","name":"lamb","code":"81531","password":"1234567"}  这边的code是通过发送（updatePhone类型）验证码收取到了code
 返回的是用户的信息
 
 ##  用户名，密码登录
+方式：post
 url:http://localhost:8080/api/login
 参数：{"name":"Lamb","password":"20020129"}
 返回值：
@@ -65,6 +70,7 @@ url:http://localhost:8080/api/login
 
 
 ## 用户退出
+方式：post
 url：http://localhost:8080/api/logout
 参数：{"newPassword": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1NiIsImV4cCI6MTY3MzU5NDA0MywidXNlcm5hbWUiOiIxMjM0In0.vxLsRSsCpiAoUzXtlGzo2peqKgQLCKBWpAx0H2lbWZs"}  newPassword即为token（登录以后返回的token）token得放请求头
 {
@@ -80,16 +86,19 @@ url：http://localhost:8080/api/logout
 }
 
 ##  用户注册
+方式：post
 url：http://localhost:8080/api/signup
 参数{"phone":"15119380977","code":"1111","type":"register","name":"1234","password":"123456","sex":"男","level":1}
 
 
 ## 手机验证码登录
+方式：post
 url：http://localhost:8080/api/loginsms
 参数：{"phone":"15119380977","code":"1111"}
 
 
 ## 判断是否登录
+方式：post
 url：http://localhost:8080/api/auth
 参数：{"newPassword": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1NiIsImV4cCI6MTY3MzU5NDA0MywidXNlcm5hbWUiOiIxMjM0In0.vxLsRSsCpiAoUzXtlGzo2peqKgQLCKBWpAx0H2lbWZs","phone": "15119380977"}
 

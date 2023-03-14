@@ -1,6 +1,7 @@
 package com.baihe.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -13,13 +14,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 //开启swagger2
 @EnableSwagger2
+@ComponentScan({"com.baihe.config"})
 public class SwaggerConfig {
 
     @Bean
     public Docket createRestApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(getApiInfo())
-                .pathMapping("/")
+                .enable(true)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.baihe.controller"))
                 .paths(PathSelectors.any())
@@ -30,8 +32,8 @@ public class SwaggerConfig {
     private ApiInfo getApiInfo(){
 
         return new ApiInfoBuilder()
-                .title("登录注册-SwaggerAPI文档") // 文档标题
-                .version("1.0")
+                .title("登录注册和日程增删改，八字获取接口-SwaggerAPI文档") // 文档标题
+                .version("2.0")
                 .build();
 
     }

@@ -57,6 +57,13 @@ public class TokenUtils {
             e.printStackTrace();
             return  false;
         }
+
+    }
+
+    //根据token获取用户名
+    public static String getUserNameByToken(String token){
+
+        return null;
     }
     public static void main(String[] args) {
        String username ="zhangsan";
