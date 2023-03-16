@@ -37,7 +37,7 @@ public class LifeMessageController {
             "    \"username\": null\n" +
             "}"   )
     @GetMapping("getbazi")
-    public Result<BaZi> getBaZi(@RequestBody Luner luner){
+    public Result<BaZi> getBaZi(Luner luner){
         String[] baZi = LiuNianUtil.getBaZi(luner.getNian(), luner.getYue(), luner.getRi(), luner.getShi());
         BaZi baZi1 = new BaZi();
         baZi1.setNianZhu(baZi[0]);
@@ -78,7 +78,7 @@ public class LifeMessageController {
             "\"username\": null\n" +
             "}\n")
     @GetMapping("getliunian")
-    public Result<LiuNian> getLiuNian(@RequestBody Luner luner){
+    public Result<LiuNian> getLiuNian(Luner luner){
         String[] liuNianArr = LiuNianUtil.getLiuNian(luner.getNian(), luner.getYue(), luner.getRi(), luner.getShi(), luner.getGender(), luner.getDaYunIndex());
         LiuNian liuNian = new LiuNian();
         liuNian.setOne(liuNianArr[0]);
@@ -126,7 +126,7 @@ public class LifeMessageController {
             "\"username\": null\n" +
             "}")
     @GetMapping("getdayun")
-    public Result<DaYun> getDaYun(@RequestBody Luner luner){
+    public Result<DaYun> getDaYun(Luner luner){
         String[] daYunArr = LiuNianUtil.getDaYunArr(luner.getNian(), luner.getYue(), luner.getRi(), luner.getShi(), luner.getGender());
         DaYun daYun = new DaYun();
         daYun.setOne(daYunArr[0]);

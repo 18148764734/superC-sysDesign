@@ -39,7 +39,7 @@ public class ScheduleController {
             "    \"username\": null\n" +
             "}"   )
     @GetMapping("getbazi")
-    public Result<BaZi> getBaZi(@RequestBody Luner luner){
+    public Result<BaZi> getBaZi(Luner luner){
         String[] baZi = LiuNianUtil.getBaZi(luner.getNian(), luner.getYue(), luner.getRi(), luner.getShi());
         BaZi baZi1 = new BaZi();
         baZi1.setNianZhu(baZi[0]);
@@ -104,7 +104,7 @@ public class ScheduleController {
             "\"username\": null\n" +
             "}"   )
     @GetMapping("queryoneschedule")
-    public Result<Schedule> querySchedule(@RequestBody Schedule schedule){
+    public Result<Schedule> querySchedule(Schedule schedule){
         Schedule schedule1 = scheduleService.findByScheduleTime(schedule.getScheduleTime(), schedule.getScheduleId());
         return  Result.success(schedule1);
     }
@@ -142,7 +142,7 @@ public class ScheduleController {
             "\"username\": null\n" +
             "}"   )
     @GetMapping("queryallschedule")
-    public Result<List<Schedule>> queryAllSchedule(@RequestBody Schedule schedule){
+    public Result<List<Schedule>> queryAllSchedule(Schedule schedule){
         List<Schedule> allByScheduleTime = scheduleService.findAllByScheduleTime(schedule.getScheduleTime(),schedule.getPhone());
         return  Result.success(allByScheduleTime);
     }
@@ -166,7 +166,7 @@ public class ScheduleController {
             "\"username\": null\n" +
             "}"   )
     @GetMapping("delschedule")
-    public Result delSchedule(@RequestBody Schedule schedule){
+    public Result delSchedule(Schedule schedule){
         scheduleService.deleteByScheduleTime(schedule.getScheduleTime(),schedule.getScheduleId());
         return  Result.success();
     }
@@ -218,7 +218,7 @@ public class ScheduleController {
             "\"username\": null\n" +
             "}")
     @GetMapping("delallschedule")
-    public Result delAllSchedule(@RequestBody Schedule schedule){
+    public Result delAllSchedule(Schedule schedule){
         scheduleService.deleteAll(schedule.getScheduleTime(),schedule.getPhone());
         return  Result.success();
     }
@@ -279,7 +279,7 @@ public class ScheduleController {
             "\"username\": null\n" +
             "}")
     @GetMapping("getschedulebynianyue")
-    public Result<List<Schedule>> getScheduleByNianYue(@RequestBody Schedule schedule){
+    public Result<List<Schedule>> getScheduleByNianYue(Schedule schedule){
         List<Schedule> list = scheduleService.findScheduleByYearAndMonth(schedule.getScheduleTime(), schedule.getPhone());
         return  Result.success(list);
     }
