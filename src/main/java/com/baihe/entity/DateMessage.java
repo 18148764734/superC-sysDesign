@@ -18,8 +18,17 @@ public class DateMessage {
 
     private List<String> fear;
 
+    private String yinLiNianYueRi;
     public DateMessage(){
 
+    }
+
+    public String getYinLiNianYueRi() {
+        return yinLiNianYueRi;
+    }
+
+    public void setYinLiNianYueRi(String yinLiNianYueRi) {
+        this.yinLiNianYueRi = yinLiNianYueRi;
     }
 
     public List<String> getSuitable() {

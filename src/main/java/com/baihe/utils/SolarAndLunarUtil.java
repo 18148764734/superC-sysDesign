@@ -65,8 +65,13 @@ public class SolarAndLunarUtil {
             }else {
                 dateMessage.setWeekend(false);
             }
+            String yearInChinese = lunar.getYearInChinese();
+            String monthInChinese = lunar.getMonthInChinese();
+            String dayInChinese = lunar.getDayInChinese();
+            dateMessage.setYinLi(dayInChinese);
 
-            dateMessage.setYinLi(lunar.getDayInChinese());
+            String lunarNianYueRi=yearInChinese+"年"+monthInChinese+"月"+dayInChinese+"日";
+            dateMessage.setYinLiNianYueRi(lunarNianYueRi);
             if (jieQi.equals("")){
                 dateMessage.setJieQi("null");
             }else {
