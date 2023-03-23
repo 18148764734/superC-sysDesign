@@ -42,16 +42,35 @@ public class SolarAndLunarUtil {
         ArrayList<DateMessage> list = new ArrayList<>();
         for (int i = 1; i <= days; i++) {
             DateMessage dateMessage = new DateMessage();
-            Holiday holiday = HolidayUtil.getHoliday(nian, yue, i);
             Solar solar = new Solar(nian, yue, i);
             Lunar lunar = solar.getLunar();
             String nianYueRi=nianYue+i;
             String jieQi = lunar.getJieQi();
-            if (holiday==null){
-                dateMessage.setHoliday(null);
-            }else {
-                dateMessage.setHoliday(holiday.getName());
+            String festival = lunar.getFestival();
+            String festival1 = solar.getFestival();
+            String festivalByWeek = solar.getFestivalByWeek();
+            if(null!=festival&&null==festivalByWeek&&null==festival1){
+                dateMessage.setHoliday(festival);
             }
+            if(null!=festival1&&null==festival&&null==festivalByWeek){
+                dateMessage.setHoliday(festival1);
+            }
+            if(null!=festivalByWeek&&null==festival&&null==festival1){
+                dateMessage.setHoliday(festivalByWeek);
+            }
+            if(null!=festival&&null!=festival1&&null==festivalByWeek){
+                dateMessage.setHoliday(festival+festival1);
+            }
+            if(null!=festivalByWeek&&null!=festival&&null==festival1){
+                dateMessage.setHoliday(festival+festivalByWeek);
+            }
+            if(null!=festivalByWeek&&null!=festival1&&null==festival){
+                dateMessage.setHoliday(festival1+festivalByWeek);
+            }
+            if(null!=festival&&null!=festival1&&null!=festivalByWeek){
+                dateMessage.setHoliday(festival+festival1+festivalByWeek);
+            }
+
             List<String> ji = lunar.getDayJi();
             List<String> yi = lunar.getDayYi();
             String week = solar.getWeekInChinese();
@@ -73,7 +92,7 @@ public class SolarAndLunarUtil {
             String lunarNianYueRi=yearInChinese+"年"+monthInChinese+"月"+dayInChinese+"日";
             dateMessage.setYinLiNianYueRi(lunarNianYueRi);
             if (jieQi.equals("")){
-                dateMessage.setJieQi("null");
+                dateMessage.setJieQi(null);
             }else {
                 dateMessage.setJieQi(jieQi);
             }
@@ -90,23 +109,4 @@ public class SolarAndLunarUtil {
         return lunarVo;
     }
 
-
-    private String judgeHoliday(int solarYue,int solarRi,int lunarYue,int lunarRi ){
-        String result="";
-        String solarYueRi=String.valueOf(solarYue)+String.valueOf(solarRi);
-        String lunarYueRi=String.valueOf(lunarYue)+String.valueOf(lunarRi);
-        switch (solarYueRi){
-            case "0101":result="元旦节";
-                break;
-            case "0405":result="清明节";
-                break;
-            case "1001":result="国庆节";
-                break;
-            default: {
-                result="null";
-            }
-
-        }
-        return result;
-    }
 }

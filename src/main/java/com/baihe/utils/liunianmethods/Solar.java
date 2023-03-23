@@ -393,6 +393,29 @@ public class Solar {
     return l;
   }
 
+
+  public String getFestival() {
+    //获取几月几日对应的节日
+    String f = SolarUtil.FESTIVAL.get(month + "-" + day);
+
+    return f;
+  }
+
+  public String getFestivalByWeek() {
+
+    //计算几月第几个星期几对应的节日
+    int weeks = (int) Math.ceil(day / 7D);
+    //星期几，0代表星期天
+    int week = getWeek();
+    String f = SolarUtil.WEEK_FESTIVAL.get(month + "-" + weeks + "-" + week);
+
+    if (day + 7 > SolarUtil.getDaysOfMonth(year, month)) {
+      f =f+ SolarUtil.WEEK_FESTIVAL.get(month + "-0-" + week);
+
+    }
+    return f;
+  }
+
   /**
    * 获取非正式的节日，有可能一天会有多个节日
    *

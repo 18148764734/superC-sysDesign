@@ -958,6 +958,20 @@ public class Lunar {
     return l;
   }
 
+  public String getFestival() {
+//    List<String> l = new ArrayList<String>();
+    String f = LunarUtil.FESTIVAL.get(month + "-" + day);
+//    if (null != f) {
+//      l.add(f);
+//    }
+    if (Math.abs(month) == 12 && day >= 29 && year != next(1).getYear()) {
+//      l.add("除夕");
+      f=f+" 除夕";
+    }
+//    return l;
+    return f;
+  }
+
   /**
    * 获取非正式的节日，有可能一天会有多个节日
    *
