@@ -830,3 +830,6 @@ Caused by: java.lang.ClassCastException: com.baihe.utils.SolarAndLunarUtil canno
 2023-03-23 13:04:22.565  INFO 22868 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 7 ms
 2023-03-23 13:04:23.059  INFO 22868 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
 2023-03-23 13:04:23.132  INFO 22868 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-03-23 13:50:49.176  INFO 22868 --- [Thread-8] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2023-03-23 13:50:49.177  INFO 22868 --- [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-03-23 13:50:49.179  INFO 22868 --- [Thread-8] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
