@@ -56,9 +56,9 @@ public class ScheduleController {
     public Result<BaZi> getBaZiByNianYueRi(Luner luner){
         String[] baZi = LiuNianUtil.getBaZi(luner.getNian(), luner.getYue(), luner.getRi(), luner.getShi());
         BaZi baZi1 = new BaZi();
-        baZi1.setNianZhu(baZi[0]+"年");
-        baZi1.setYueZhu(baZi[1]+"月");
-        baZi1.setRiZhu(baZi[2]+"日");
+        baZi1.setBaZiNian(baZi[0]+"年");
+        baZi1.setBaZiYue(baZi[1]+"月");
+        baZi1.setBaZiRi(baZi[2]+"日");
         return Result.success(baZi1);
     }
 

@@ -246,6 +246,33 @@ url:url:http://localhost:8080/schedule/getschedulebynianyue
 }
 
 
+## 通过年月日获取八字拼接年，月，日
+方式：get
+url:url:http://localhost:8080/schedule/getbazinianyueri
+示例测试url：http://localhost:8080/schedule/getbazinianyueri?nian=2000&yue=12&ri=12&shi=12
+参数示例：
+{
+"nian":"2002",
+"yue":"1",
+"ri":"12",
+"shi":"12"
+}
+返回值:
+{
+"code": "0",
+"msg": "成功",
+"data": {
+"nianZhu": null,
+"yueZhu": null,
+"riZhu": null,
+"shiZhu": null,
+"baZiNian": "庚辰年",
+"baZiYue": "己丑月",
+"baZiRi": "己巳日"
+},
+"username": null
+}
+
 ## 通过年月获取信息
 方式：get
 url:url:http://localhost:8080/schedule/getschedulebynianyue1

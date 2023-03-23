@@ -6,6 +6,34 @@ public class BaZi {
     private String riZhu;
     private String shiZhu;
 
+    private String baZiNian;
+    private String baZiYue;
+    private String baZiRi;
+
+    public String getBaZiNian() {
+        return baZiNian;
+    }
+
+    public void setBaZiNian(String baZiNian) {
+        this.baZiNian = baZiNian;
+    }
+
+    public String getBaZiYue() {
+        return baZiYue;
+    }
+
+    public void setBaZiYue(String baZiYue) {
+        this.baZiYue = baZiYue;
+    }
+
+    public String getBaZiRi() {
+        return baZiRi;
+    }
+
+    public void setBaZiRi(String baZiRi) {
+        this.baZiRi = baZiRi;
+    }
+
     public String getNianZhu() {
         return nianZhu;
     }
