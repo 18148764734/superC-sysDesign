@@ -244,3 +244,81 @@ url:url:http://localhost:8080/schedule/getschedulebynianyue
 "data": null,
 "username": null
 }
+
+
+## 通过年月获取信息
+方式：get
+url:url:http://localhost:8080/schedule/getschedulebynianyue1
+参数示例：
+{
+"scheduleTime":"2023-02-08",
+"phone":"15119380977"
+}
+//get 请求是放请求头的  示例测试url：http://localhost:8080/schedule/getschedulebynianyue1?scheduleTime=2023-02-01&phone=15119380977
+返回值：
+{
+"code": "0",
+"msg": "成功",
+"data": {
+"allDate": [
+{
+"day": 27,
+"year": 2023,
+"month": 2,
+"jieQi": "null",
+"holiday": null,
+"yinLi": "初八",
+"xingQiDate": "星期一",
+"suitable": [
+"嫁娶",
+"冠笄",
+"纳采",
+"出行",
+"会亲友",
+"上梁",
+"安机械",
+"安床",
+"牧养",
+"畋猎",
+"祭祀",
+"祈福",
+"开光",
+"修造",
+"安门",
+"盖屋",
+"起基"
+],
+"fear": [
+"入宅",
+"作灶",
+"治病",
+"安葬",
+"移徙"
+],
+"weekend": false,
+"daily": true
+},
+{
+"day": 28,
+"year": 2023,
+"month": 2,
+"jieQi": "null",
+"holiday": null,
+"yinLi": "初九",
+"xingQiDate": "星期二",
+"suitable": [
+"修饰垣墙",
+"平治道涂",
+"祭祀",
+"馀事勿取"
+],
+"fear": [
+"诸事不宜"
+],
+"weekend": false,
+"daily": true
+}
+]
+},
+"username": null
+}

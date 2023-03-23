@@ -6,6 +6,8 @@ import com.baihe.entity.Luner;
 import com.baihe.entity.Schedule;
 import com.baihe.service.ScheduleService;
 import com.baihe.utils.LiuNianUtil;
+import com.baihe.utils.SolarAndLunarUtil;
+import com.baihe.vo.LunarVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -282,6 +284,12 @@ public class ScheduleController {
     public Result<List<Schedule>> getScheduleByNianYue(Schedule schedule){
         List<Schedule> list = scheduleService.findScheduleByYearAndMonth(schedule.getScheduleTime(), schedule.getPhone());
         return  Result.success(list);
+    }
+
+
+    @GetMapping("getschedulebynianyue1")
+    public Result<LunarVo> getScheduleByNianYue1(Schedule schedule){
+        return  Result.success(SolarAndLunarUtil.getAllDate(schedule));
     }
 
 }

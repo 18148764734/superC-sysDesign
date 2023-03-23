@@ -45,9 +45,6 @@ public class ScheduleServiceImpl implements ScheduleService {
     public List<Schedule> findScheduleByYearAndMonth(String scheduleTime,String phone) {
         String nianYue=scheduleTime.substring(0,7);
         List<Schedule> list = scheduleDao.findScheduleByYearAndMonth(nianYue, phone);
-        if (list.size()==0){
-            throw new CustomException(ResultCode.SCHEDULE_EXIST);
-        }
         return list;
     }
 
