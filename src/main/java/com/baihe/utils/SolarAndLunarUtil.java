@@ -49,26 +49,41 @@ public class SolarAndLunarUtil {
             String festival = lunar.getFestival();
             String festival1 = solar.getFestival();
             String festivalByWeek = solar.getFestivalByWeek();
-            if(null!=festival&&null==festivalByWeek&&null==festival1){
-                dateMessage.setHoliday(festival);
-            }
-            if(null!=festival1&&null==festival&&null==festivalByWeek){
+//            if(null!=festival&&null==festivalByWeek&&null==festival1){
+//                dateMessage.setHoliday(festival);
+//            }
+//            if(null!=festival1&&null==festival&&null==festivalByWeek){
+//                dateMessage.setHoliday(festival1);
+//            }
+//            if(null!=festivalByWeek&&null==festival&&null==festival1){
+//                dateMessage.setHoliday(festivalByWeek);
+//            }
+//            if(null!=festival&&null!=festival1&&null==festivalByWeek){
+//                dateMessage.setHoliday(festival);
+//            }
+//            if(null!=festivalByWeek&&null!=festival&&null==festival1){
+//                dateMessage.setHoliday(festival);
+//            }
+//            if(null!=festivalByWeek&&null!=festival1&&null==festival){
+//                dateMessage.setHoliday(festival1+festivalByWeek);
+//            }
+//            if(null!=festival&&null!=festival1&&null!=festivalByWeek){
+//                dateMessage.setHoliday(festival+festival1+festivalByWeek);
+//            }
+            if (null!=festival1){
                 dateMessage.setHoliday(festival1);
             }
-            if(null!=festivalByWeek&&null==festival&&null==festival1){
+            if (null!=festivalByWeek){
                 dateMessage.setHoliday(festivalByWeek);
             }
-            if(null!=festival&&null!=festival1&&null==festivalByWeek){
-                dateMessage.setHoliday(festival+festival1);
+            if (null!=festival){
+                dateMessage.setHoliday(festival);
             }
-            if(null!=festivalByWeek&&null!=festival&&null==festival1){
-                dateMessage.setHoliday(festival+festivalByWeek);
+            if (null!=dateMessage.getHoliday()&&dateMessage.getHoliday().equals("nullnull")){
+                dateMessage.setHoliday(null);
             }
-            if(null!=festivalByWeek&&null!=festival1&&null==festival){
-                dateMessage.setHoliday(festival1+festivalByWeek);
-            }
-            if(null!=festival&&null!=festival1&&null!=festivalByWeek){
-                dateMessage.setHoliday(festival+festival1+festivalByWeek);
+            if (null!=dateMessage.getHoliday()&&dateMessage.getHoliday().equals("nullnullnull")){
+                dateMessage.setHoliday(null);
             }
 
             List<String> ji = lunar.getDayJi();

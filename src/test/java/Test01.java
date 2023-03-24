@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Test01 {
 
@@ -92,5 +94,20 @@ public class Test01 {
         System.out.println(aa.substring(5, 7));
         System.out.println(aa.substring(0, 8));
         System.out.println(aa.substring(8, 10));
+    }
+
+
+    @Test
+    public void test06(){
+        Map<String, String> stringStringMap = new HashMap<>();
+        stringStringMap.put("1","1");
+        if (null==stringStringMap.get("0")){
+            System.out.println(stringStringMap.get("0"));
+        }
+        if ("null".equals(stringStringMap.get("0"))){
+            System.out.println(stringStringMap.get("0"));
+        }
+
+        System.out.println(stringStringMap.get("1"));
     }
 }

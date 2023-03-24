@@ -969,7 +969,10 @@ public class Lunar {
       f=f+" 除夕";
     }
 //    return l;
-    return f;
+    if (null != f) {
+      return f;
+    }
+    return null;
   }
 
   /**

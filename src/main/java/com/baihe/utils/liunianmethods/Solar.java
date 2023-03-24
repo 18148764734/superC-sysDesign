@@ -397,8 +397,10 @@ public class Solar {
   public String getFestival() {
     //获取几月几日对应的节日
     String f = SolarUtil.FESTIVAL.get(month + "-" + day);
-
-    return f;
+    if (null != f) {
+      return f;
+    }
+    return null;
   }
 
   public String getFestivalByWeek() {
@@ -413,7 +415,10 @@ public class Solar {
       f =f+ SolarUtil.WEEK_FESTIVAL.get(month + "-0-" + week);
 
     }
-    return f;
+    if (null != f) {
+      return f;
+    }
+    return null;
   }
 
   /**
