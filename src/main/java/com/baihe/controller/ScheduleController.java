@@ -7,6 +7,7 @@ import com.baihe.entity.Schedule;
 import com.baihe.service.ScheduleService;
 import com.baihe.utils.LiuNianUtil;
 import com.baihe.utils.SolarAndLunarUtil;
+import com.baihe.vo.AnimalAndTermsVo;
 import com.baihe.vo.LunarVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -301,6 +302,12 @@ public class ScheduleController {
     @GetMapping("getschedulebynianyue1")
     public Result<LunarVo> getScheduleByNianYue1(Schedule schedule){
         return  Result.success(SolarAndLunarUtil.getAllDate(schedule));
+    }
+
+
+    @GetMapping("getanimalandjieqibynianyue")
+    public Result<AnimalAndTermsVo> getAnimalAndJieQiByNianYue(Schedule schedule){
+        return  Result.success(SolarAndLunarUtil.getAnimal(schedule));
     }
 
 }

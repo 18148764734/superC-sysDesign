@@ -1,15 +1,15 @@
 package com.baihe.utils;
 
 import com.baihe.dao.ScheduleDao;
+import com.baihe.entity.AnimalAndTerms;
 import com.baihe.entity.DateMessage;
 
 import com.baihe.entity.Schedule;
-import com.baihe.service.ScheduleService;
 
-import com.baihe.utils.liunianmethods.Holiday;
-import com.baihe.utils.liunianmethods.HolidayUtil;
+import com.baihe.utils.liunianmethods.JieQi;
 import com.baihe.utils.liunianmethods.Lunar;
 import com.baihe.utils.liunianmethods.Solar;
+import com.baihe.vo.AnimalAndTermsVo;
 import com.baihe.vo.LunarVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,6 +31,31 @@ public class SolarAndLunarUtil {
 
     }
 
+    public  static AnimalAndTermsVo getAnimal(Schedule schedule){
+        String scheduleTime = schedule.getScheduleTime();
+        int nian = Integer.parseInt(scheduleTime.substring(0,4));
+        int yue = Integer.parseInt(scheduleTime.substring(5,7));
+        int days = SolarUtil.getDaysOfMonth(nian, yue);
+        ArrayList<AnimalAndTerms> list = new ArrayList<>();
+        AnimalAndTermsVo animalAndTermsVo = new AnimalAndTermsVo();
+        for (int i = 1; i <= days; i++) {
+            AnimalAndTerms animalAndTerms = new AnimalAndTerms();
+            Solar solar = new Solar(nian, yue, i);
+            Lunar lunar = solar.getLunar();
+            JieQi currentJieQi = lunar.getCurrentJieQi();
+            if (null==currentJieQi){
+                currentJieQi=lunar.getPrevJieQi();
+            }
+            String s=currentJieQi.toString();
+            animalAndTerms.setJieQi(s);
+            animalAndTerms.setAnimal(lunar.getYearShengXiao());
+            animalAndTerms.setDay(i);
+            list.add(animalAndTerms);
+        }
+        animalAndTermsVo.setAllJieQiAndCurrentAnimal(list);
+        return animalAndTermsVo;
+    }
+
     public  static LunarVo getAllDate(Schedule schedule){
 
         String scheduleTime = schedule.getScheduleTime();
@@ -45,7 +70,11 @@ public class SolarAndLunarUtil {
             Solar solar = new Solar(nian, yue, i);
             Lunar lunar = solar.getLunar();
             String nianYueRi=nianYue+i;
-            String jieQi = lunar.getJieQi();
+            JieQi currentJieQi = lunar.getCurrentJieQi();
+            if (null==currentJieQi){
+                currentJieQi=lunar.getPrevJieQi();
+            }
+            String s=currentJieQi.toString();
             String festival = lunar.getFestival();
             String festival1 = solar.getFestival();
             String festivalByWeek = solar.getFestivalByWeek();
@@ -106,11 +135,7 @@ public class SolarAndLunarUtil {
 
             String lunarNianYueRi=yearInChinese+"年"+monthInChinese+"月"+dayInChinese+"日";
             dateMessage.setYinLiNianYueRi(lunarNianYueRi);
-            if (jieQi.equals("")){
-                dateMessage.setJieQi(null);
-            }else {
-                dateMessage.setJieQi(jieQi);
-            }
+            dateMessage.setJieQi(s);
             dateMessage.setXingQiDate("星期"+week);
             List<Schedule> allByScheduleTime = solarAndLunarUtil.scheduleDao.findAllByScheduleTime(nianYueRi, schedule.getPhone());
             if (allByScheduleTime.size()==0){

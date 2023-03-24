@@ -349,3 +349,53 @@ url:url:http://localhost:8080/schedule/getschedulebynianyue1
 },
 "username": null
 }
+
+
+
+## 通过年月获取生肖和当日节气
+方式：get
+url：http://localhost:8080/schedule/getanimalandjieqibynianyue
+url示例：http://localhost:8080/schedule/getanimalandjieqibynianyue?scheduleTime=2023-04-01
+需要参数：
+{"scheduleTime":"2023-04-01"}
+animal:本年的生肖
+day：当月的具体日
+返回值：
+{
+"code": "0",
+"msg": "成功",
+"data": {
+"allJieQiAndCurrentAnimal": [
+{
+"animal": "兔",
+"jieQi": "春分",
+"day": 1
+},
+{
+"animal": "兔",
+"jieQi": "春分",
+"day": 2
+},
+{
+"animal": "兔",
+"jieQi": "春分",
+"day": 3
+},
+{
+"animal": "兔",
+"jieQi": "春分",
+"day": 4
+},
+{
+"animal": "兔",
+"jieQi": "清明",
+"day": 5
+},
+{
+"animal": "兔",
+"jieQi": "清明",
+"day": 6
+}]
+},
+"username": null
+}

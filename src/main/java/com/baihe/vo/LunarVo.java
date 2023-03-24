@@ -5,7 +5,7 @@ import com.baihe.entity.DateMessage;
 import java.util.List;
 
 public class LunarVo {
-    List<DateMessage>  allDate;
+    private List<DateMessage>  allDate;
 
     public LunarVo(){
 

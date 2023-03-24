@@ -4,6 +4,8 @@ import com.baihe.entity.Schedule;
 import com.baihe.entity.User;
 import com.baihe.utils.LiuNianUtil;
 import com.baihe.utils.SolarAndLunarUtil;
+import com.baihe.utils.SolarUtil;
+import com.baihe.utils.liunianmethods.JieQi;
 import com.baihe.utils.liunianmethods.Lunar;
 import com.baihe.utils.liunianmethods.Solar;
 import com.baihe.vo.LunarVo;
@@ -12,6 +14,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -109,5 +112,32 @@ public class Test01 {
         }
 
         System.out.println(stringStringMap.get("1"));
+    }
+
+
+    @Test
+    public void test07(){
+        Solar solar = new Solar(new Date());
+        ArrayList<String> strings = new ArrayList<>();
+        int nian = solar.getYear();
+        int yue = solar.getMonth();
+        int days = SolarUtil.getDaysOfMonth(nian, yue);
+        for (int i = 1; i <= days; i++) {
+            Solar solar1 = new Solar(nian, yue, i);
+            Lunar lunar = solar1.getLunar();
+            JieQi currentJieQi = lunar.getCurrentJieQi();
+            if (null==currentJieQi){
+                currentJieQi=lunar.getPrevJieQi();
+            }
+            String s=currentJieQi.toString()+currentJieQi.getSolar().toYmd();
+            strings.add(s);
+        }
+        Solar solar1 = new Solar(2023,3,1);
+        Lunar lunar = solar1.getLunar();
+
+        System.out.println(lunar.getPrevJieQi()+lunar.getPrevJie().getSolar().toYmd());
+        System.out.println(lunar.getNextJieQi()+lunar.getNextJieQi().getSolar().toYmd());
+        System.out.println("=============");
+        strings.forEach(System.out::println);
     }
 }
