@@ -126,10 +126,12 @@ public class Test01 {
             Solar solar1 = new Solar(nian, yue, i);
             Lunar lunar = solar1.getLunar();
             JieQi currentJieQi = lunar.getCurrentJieQi();
+            String s="";
             if (null==currentJieQi){
-                currentJieQi=lunar.getPrevJieQi();
+                s=null;
+            }else {
+                s=currentJieQi.toString();
             }
-            String s=currentJieQi.toString()+currentJieQi.getSolar().toYmd();
             strings.add(s);
         }
         Solar solar1 = new Solar(2023,3,1);

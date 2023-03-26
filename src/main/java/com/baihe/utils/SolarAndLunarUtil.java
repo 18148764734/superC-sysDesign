@@ -71,10 +71,6 @@ public class SolarAndLunarUtil {
             Lunar lunar = solar.getLunar();
             String nianYueRi=nianYue+i;
             JieQi currentJieQi = lunar.getCurrentJieQi();
-            if (null==currentJieQi){
-                currentJieQi=lunar.getPrevJieQi();
-            }
-            String s=currentJieQi.toString();
             String festival = lunar.getFestival();
             String festival1 = solar.getFestival();
             String festivalByWeek = solar.getFestivalByWeek();
@@ -135,7 +131,12 @@ public class SolarAndLunarUtil {
 
             String lunarNianYueRi=yearInChinese+"年"+monthInChinese+"月"+dayInChinese+"日";
             dateMessage.setYinLiNianYueRi(lunarNianYueRi);
-            dateMessage.setJieQi(s);
+            if (null==currentJieQi){
+                dateMessage.setJieQi(null);
+            }else {
+                dateMessage.setJieQi(currentJieQi.toString());
+            }
+
             dateMessage.setXingQiDate("星期"+week);
             List<Schedule> allByScheduleTime = solarAndLunarUtil.scheduleDao.findAllByScheduleTime(nianYueRi, schedule.getPhone());
             if (allByScheduleTime.size()==0){
