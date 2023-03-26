@@ -57,19 +57,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public Schedule findByScheduleTime(String scheduleTime,Long scheduleId) {
         Schedule schedule1 = scheduleDao.findByScheduleTime(scheduleTime,scheduleId);
-        if (schedule1==null){
-            throw  new CustomException(ResultCode.SCHEDULE_MESSAGE_EXIST);
-        }
         return schedule1;
-
     }
 
     @Override
     public List<Schedule> findAllByScheduleTime(String scheduleTime,String phone) {
         List<Schedule> list = scheduleDao.findAllByScheduleTime(scheduleTime,phone);
-        if (list.size()==0){
-            throw  new CustomException(ResultCode.SCHEDULE_MESSAGE_EXIST);
-        }
         return list;
     }
 
