@@ -411,10 +411,13 @@ public class Solar {
     int week = getWeek();
     String f = SolarUtil.WEEK_FESTIVAL.get(month + "-" + weeks + "-" + week);
 
-    if (day + 7 > SolarUtil.getDaysOfMonth(year, month)) {
-      f =f+ SolarUtil.WEEK_FESTIVAL.get(month + "-0-" + week);
+    if (null==f){
+      if (day + 7 > SolarUtil.getDaysOfMonth(year, month)) {
+        f =SolarUtil.WEEK_FESTIVAL.get(month + "-0-" + week);
 
+      }
     }
+
     if (null != f) {
       return f;
     }

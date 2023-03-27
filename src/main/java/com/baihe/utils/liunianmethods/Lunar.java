@@ -964,9 +964,11 @@ public class Lunar {
 //    if (null != f) {
 //      l.add(f);
 //    }
-    if (Math.abs(month) == 12 && day >= 29 && year != next(1).getYear()) {
+    if (null==f){
+      if (Math.abs(month) == 12 && day >= 29 && year != next(1).getYear()) {
 //      l.add("除夕");
-      f=f+" 除夕";
+        f="除夕";
+      }
     }
 //    return l;
     if (null != f) {

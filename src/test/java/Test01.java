@@ -1,4 +1,5 @@
 import com.baihe.dao.UserDao;
+import com.baihe.entity.DateMessage;
 import com.baihe.entity.Luner;
 import com.baihe.entity.Schedule;
 import com.baihe.entity.User;
@@ -14,10 +15,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Test01 {
 
@@ -141,5 +139,65 @@ public class Test01 {
         System.out.println(lunar.getNextJieQi()+lunar.getNextJieQi().getSolar().toYmd());
         System.out.println("=============");
         strings.forEach(System.out::println);
+    }
+
+    @Test
+    public void test08(){
+        Solar solar = new Solar(new Date());
+        int nian = solar.getYear();
+        int yue = solar.getMonth();
+        int days = SolarUtil.getDaysOfMonth(nian, yue);
+        ArrayList<DateMessage> list = new ArrayList<>();
+//        for (int i = 1; i <= days; i++) {
+            DateMessage dateMessage = new DateMessage();
+            Solar solar1 = new Solar(nian, yue, 27);
+            Lunar lunar = solar.getLunar();
+            String festival = lunar.getFestival();
+            String festival1 = solar1.getFestival();
+            String festivalByWeek = solar1.getFestivalByWeek();
+//            if(null!=festival&&null==festivalByWeek&&null==festival1){
+//                dateMessage.setHoliday(festival);
+//            }
+//            if(null!=festival1&&null==festival&&null==festivalByWeek){
+//                dateMessage.setHoliday(festival1);
+//            }
+//            if(null!=festivalByWeek&&null==festival&&null==festival1){
+//                dateMessage.setHoliday(festivalByWeek);
+//            }
+//            if(null!=festival&&null!=festival1&&null==festivalByWeek){
+//                dateMessage.setHoliday(festival);
+//            }
+//            if(null!=festivalByWeek&&null!=festival&&null==festival1){
+//                dateMessage.setHoliday(festival);
+//            }
+//            if(null!=festivalByWeek&&null!=festival1&&null==festival){
+//                dateMessage.setHoliday(festival1+festivalByWeek);
+//            }
+//            if(null!=festival&&null!=festival1&&null!=festivalByWeek){
+//                dateMessage.setHoliday(festival+festival1+festivalByWeek);
+//            }
+            if (null!=festival1){
+                dateMessage.setHoliday(festival1);
+            }
+            if (null!=festivalByWeek){
+                dateMessage.setHoliday(festivalByWeek);
+            }
+            if (null!=festival){
+                dateMessage.setHoliday(festival);
+            }
+            if (null!=dateMessage.getHoliday()&&dateMessage.getHoliday().equals("nullnull")){
+                dateMessage.setHoliday(null);
+            }
+            if (null!=dateMessage.getHoliday()&&dateMessage.getHoliday().equals("nullnullnull")){
+                dateMessage.setHoliday(null);
+            }
+            list.add(dateMessage);
+
+        String holiday = dateMessage.getHoliday();
+        System.out.println(holiday);
+//    }
+//        for (int i = 0; i < list.size(); i++) {
+//            System.out.println(list.get(i).getHoliday());
+//        }
     }
 }
