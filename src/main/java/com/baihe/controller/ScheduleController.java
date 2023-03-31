@@ -7,6 +7,8 @@ import com.baihe.entity.Schedule;
 import com.baihe.service.ScheduleService;
 import com.baihe.utils.LiuNianUtil;
 import com.baihe.utils.SolarAndLunarUtil;
+import com.baihe.utils.liunianmethods.Lunar;
+import com.baihe.utils.liunianmethods.Solar;
 import com.baihe.vo.AnimalAndTermsVo;
 import com.baihe.vo.LunarVo;
 import io.swagger.annotations.Api;
@@ -43,7 +45,9 @@ public class ScheduleController {
             "}"   )
     @GetMapping("getbazi")
     public Result<BaZi> getBaZi(Luner luner){
-        String[] baZi = LiuNianUtil.getBaZi(luner.getNian(), luner.getYue(), luner.getRi(), luner.getShi());
+        Solar solar = new Solar(luner.getNian(), luner.getYue(), luner.getRi());
+        Lunar lunar = solar.getLunar();
+        String[] baZi = LiuNianUtil.getBaZi(lunar.getYear(), lunar.getMonth(), lunar.getDay(), luner.getShi());
         BaZi baZi1 = new BaZi();
         baZi1.setNianZhu(baZi[0]);
         baZi1.setYueZhu(baZi[1]);
@@ -55,7 +59,9 @@ public class ScheduleController {
 
     @GetMapping("getbazinianyueri")
     public Result<BaZi> getBaZiByNianYueRi(Luner luner){
-        String[] baZi = LiuNianUtil.getBaZi(luner.getNian(), luner.getYue(), luner.getRi(), luner.getShi());
+        Solar solar = new Solar(luner.getNian(), luner.getYue(), luner.getRi());
+        Lunar lunar = solar.getLunar();
+        String[] baZi = LiuNianUtil.getBaZi(lunar.getYear(), lunar.getMonth(), lunar.getDay(), luner.getShi());
         BaZi baZi1 = new BaZi();
         baZi1.setBaZiNian(baZi[0]+"年");
         baZi1.setBaZiYue(baZi[1]+"月");

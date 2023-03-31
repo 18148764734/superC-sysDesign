@@ -10,6 +10,7 @@ url:http://localhost:8080/schedule/getbazi
 "ri":"12",
 "shi":"12"
 }
+示例url：http://localhost:8080/schedule/getbazi?nian=2023&yue=3&ri=31&shi=12
 
 返回值：
 {
@@ -35,6 +36,7 @@ url:url:url:http://localhost:8080/schedule/addschedule
 "scheduleTime":"2023-02-26",
 "message":"123454646"
 }
+示例url：http://localhost:8080/schedule/getbazi?nian=2023&yue=3&ri=31&shi=12
 
 返回值：
 {
