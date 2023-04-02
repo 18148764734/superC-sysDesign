@@ -175,6 +175,7 @@ public class AccountController {
             @ApiResponse(code = 0,message = "成功"),
             @ApiResponse(code = 401,message = "参数错误/验证码过期或者未输入")
     })
+    @PostMapping("/loginsms")
     @ApiOperation(value = "通过手机验证码登录，成功返回token信息",notes = "需要的参数：phone，code（这边的code是通过发送（login的类型）验证码收取到了code）")
     public Result<String> loginsms(@RequestBody User user) {
 
