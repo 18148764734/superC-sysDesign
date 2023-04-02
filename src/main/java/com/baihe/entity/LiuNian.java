@@ -1,15 +1,30 @@
 package com.baihe.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("流年实体类（每个流年都是具体的一年）")
 public class LiuNian {
+
+    @ApiModelProperty(value = "第一个流年",dataType = "string")
     private String one;
+    @ApiModelProperty(value = "第二个流年",dataType = "string")
     private String two;
+    @ApiModelProperty(value = "第三个流年",dataType = "string")
     private String three;
+    @ApiModelProperty(value = "第四个流年",dataType = "string")
     private String four;
+    @ApiModelProperty(value = "第五个流年",dataType = "string")
     private String five;
+    @ApiModelProperty(value = "第六个流年",dataType = "string")
     private String six;
+    @ApiModelProperty(value = "第七个流年",dataType = "string")
     private String seven;
+    @ApiModelProperty(value = "第八个流年",dataType = "string")
     private String eight;
+    @ApiModelProperty(value = "第九个流年",dataType = "string")
     private String nine;
+    @ApiModelProperty(value = "第十个流年",dataType = "string")
     private String ten;
 
     public LiuNian(){

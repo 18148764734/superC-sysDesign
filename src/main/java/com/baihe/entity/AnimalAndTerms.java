@@ -1,9 +1,18 @@
 package com.baihe.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("生肖年和当日节气信息类")
 public class AnimalAndTerms {
+    @ApiModelProperty("生肖")
     private String animal;
+
+    @ApiModelProperty("节气")
     private String jieQi;
 
+
+    @ApiModelProperty(value = "日期",dataType = "int")
     private int day;
 
     public int getDay() {

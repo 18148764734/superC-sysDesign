@@ -1,8 +1,11 @@
 package com.baihe.entity;
 
 import com.baihe.utils.liunianmethods.Lunar;
+import io.swagger.annotations.ApiModel;
 
+@ApiModel("前端请求类（获取大运，流年）")
 public class Luner {
+
     private int nian;
     private int yue;
     private int ri;

@@ -1,10 +1,19 @@
 package com.baihe.common;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Result<T> {
+
+    @ApiModelProperty(value = "返回码")
     private String code;
+
+    @ApiModelProperty("反馈信息")
     private String msg;
+
+    @ApiModelProperty("数据")
     private T data;
 
+    @ApiModelProperty("部分接口需要的返回用户名")
     private String username;
     private Result(T data) {
         this.data = data;

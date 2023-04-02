@@ -12,8 +12,7 @@ import com.baihe.service.UserService;
 import com.baihe.service.SmsService;
 import com.baihe.utils.SmsUtil1;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.BeanUtils;
@@ -58,12 +57,14 @@ public class AccountController {
     private StringRedisTemplate redistp;
 
 
-    @ApiOperation(value = "重置密码(首先得验证码通过)",notes = " \"需要的参数：user的phone和通过发送验证码接口收到的验证码，需要的新密码（password） \" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 \n" +
-            "模板：{\"phone\":\"15119380977\",\"code\":\"88876\",\"password\":\"12345678\"}   这边的code是通过发送（resetPassword类型）验证码收取到了code"+
-            " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取" +
-            "密码不需要与之前的密码相同，相同报错 code 2006  msg为不可与原密码相同" +
-            "如果该手机号码数据不存在，报错code 2003 msg为 未找到该用户\"")
+    @ApiResponses({
+            @ApiResponse(code = 0,message = "成功"),
+            @ApiResponse(code = 401,message = "参数错误/验证码过期或者未输入"),
+            @ApiResponse(code = 2001,message = "未找到用户"),
+            @ApiResponse(code = 2006,message = "不可与原密码相同")
+    })
+    @ApiOperation(value = "重置密码(首先得验证码通过)",notes = "需要的参数：phone，code（这边的code是通过发送（resetPassword类型）验证码收取到了code），password")
+    @ApiParam("")
     @PostMapping("/resetpassword")
     public Result<User> resetPassword(@RequestBody User user){
         if (user.getPhone().equals("")) {
@@ -82,11 +83,13 @@ public class AccountController {
 
 
 
-    @ApiOperation(value = "修改注册手机号模板",notes = " \"需要的参数：user的phone和通过发送验证码接口收到的验证码，需要的新电话号码（phone），以及user的name和password \" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 \n" +
-            "模板：{\"phone\":\"18219413000\",\"name\":\"lamb\",\"code\":\"81531\",\"password\":\"1234567\"}  这边的code是通过发送（updatePhone类型）验证码收取到了code"+
-            " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取" +
-            "电话号码不能与之前的相同，相同报错 code 1001  msg为手机号码已存在\"")
+    @ApiResponses({
+            @ApiResponse(code = 0,message = "成功"),
+            @ApiResponse(code = 401,message = "参数错误/验证码过期或者未输入"),
+            @ApiResponse(code = 1001,message = "手机号已存在"),
+            @ApiResponse(code = 2002,message = "账号或密码错误")
+    })
+    @ApiOperation(value = "修改注册手机号",notes = "需要的参数：phone，code（这边的code是通过发送（updatePhone类型）验证码收取到了code），password,name")
     @PostMapping("/updatephone")
     public Result<User> updatePhone(@RequestBody User user){
         if (user.getPhone().equals("")) {
@@ -106,11 +109,13 @@ public class AccountController {
 
 
 
-    @ApiOperation(value = "通过手机发送验证码验证，成功返回msg ：ok",notes = " \"需要的参数：user的phone和通过发送验证码（updatePhone类型）接口收到的验证码，user的name \" +\n" +
-            "            \"返回值：--成功->code为0，msg为ok ，data为null\n " +
-            "模板：{\"phone\":\"15119380977\",\"code\":\"77610\",\"name\":\"lamb\"}"+
-            " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取。\n" +
-            "如果手机号码不存在  也失败  报错code为1001  msg为：手机号\\\"*****\\\"不存在"+"\"")
+    @ApiResponses({
+            @ApiResponse(code = 0,message = "成功"),
+            @ApiResponse(code = 401,message = "参数错误/验证码过期或者未输入"),
+            @ApiResponse(code = 1001,message = "手机号不存在"),
+            @ApiResponse(code = 2002,message = "账号或密码错误")
+    })
+    @ApiOperation(value = "通过手机发送验证码验证，成功返回msg ：ok",notes = "需要的参数：phone，code（这边的code是通过发送（updatePhone类型）验证码收取到了code）,name")
     @PostMapping("/checkphone")
     public Result<String> checkPhone(@RequestBody User user) {
 
@@ -139,9 +144,11 @@ public class AccountController {
      * 失败返回 如 {"code":"2002","msg":"账号或密码错误","data":null}
      */
 
-    @ApiOperation(value = "用户登录,成功即返回token信息",notes = "需要的参数：user的name和password\n " +
-            "模板 {\"name\":\"Lamb\",\"password\":\"20020129\"}"+
-            "返回值：--成功->code为0，msg为成功  data为user的信息 ,还有username为user的name --失败->code为2002, msg为账号或密码错误，data为token信息"   )
+    @ApiResponses({
+            @ApiResponse(code = 0,message = "成功"),
+            @ApiResponse(code = 2002,message = "账号或密码错误")
+    })
+    @ApiOperation(value = "用户登录,成功即返回token信息",notes = "name，password")
     @PostMapping("/login")
     public Result<String> login(@RequestBody User user) {
         if (StrUtil.isBlank(user.getName()) || StrUtil.isBlank(user.getPassword())) {
@@ -164,11 +171,11 @@ public class AccountController {
      * 成功返回 code=0 为成功，其他为失败 {"code":"0","msg":"成功","data":{"password":"111111","newPassword":null,"userinfo":null,"sex":"男","age":null,"region":null,"phone":"15927614001","address":null,"userdate":"2022-12-18 23:53:06","identity":null,"level":1,"code":"13156","name":"user01","id":1}}
      * 失败返回 如 {"code":"401","msg":"验证码错误","data":null}
      */
-    @ApiOperation(value = "通过手机验证码登录，成功返回token信息",notes = " \"需要的参数：user的phone和通过发送验证码接口收到的验证码 \" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的token信息\n " +
-            "模板：{\"phone\":\"15119380977\",\"code\":\"1111\"}"+
-            " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取\"")
-    @PostMapping("/loginsms")
+    @ApiResponses({
+            @ApiResponse(code = 0,message = "成功"),
+            @ApiResponse(code = 401,message = "参数错误/验证码过期或者未输入")
+    })
+    @ApiOperation(value = "通过手机验证码登录，成功返回token信息",notes = "需要的参数：phone，code（这边的code是通过发送（login的类型）验证码收取到了code）")
     public Result<String> loginsms(@RequestBody User user) {
 
         String phone = user.getPhone();
@@ -215,10 +222,12 @@ public class AccountController {
      * 成功返回 code=0 为成功，其他为失败 {"code":"0","msg":"成功","data":{"password":"111111","newPassword":null,"userinfo":null,"sex":"男","age":null,"region":null,"phone":"15927614001","address":null,"userdate":"2022-12-18 23:53:06","identity":null,"level":1,"code":"13156","name":"user01","id":1}}
      * 失败返回 如 {"code":"401","msg":"验证码过期，请重新获取","data":null}
      */
-    @ApiOperation(value = "用户注册模块，输入用户信息进行注册",notes = " \"需要的参数：user实体类的phone，code,type,name,password,newPassword(注册的时候是确认的密码),sex,level \" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息\n " +
-            "模板：{\"phone\":\"15119380977\",\"code\":\"1111\",\"type\":\"register\",\"name\":\"1234\",\"password\":\"123456\",\"sex\":\"男\",\"level\":1}"+
-            " --失败->code为401, data为null，如果电话号码为空，msg为参数错误；如果验证码为空，msg为请输入验证码；如果redis里存储的验证码过期了，msg为验证码过期，请重新获取\"")
+    @ApiResponses({
+            @ApiResponse(code = 0,message = "成功"),
+            @ApiResponse(code = 401,message = "参数错误/验证码过期或者未输入"),
+            @ApiResponse(code = 1001,message = "手机号已存在/用户名已存在")
+    })
+    @ApiOperation(value = "用户注册模块，输入用户信息进行注册",notes = "需要的参数：phone，code（这边的code是通过发送（register类型）验证码收取到了code）,name，password")
     @PostMapping("/signup")
     public Result<User> register(@RequestBody User user) {
         Integer level = user.getLevel();
@@ -267,10 +276,8 @@ public class AccountController {
      * 成功返回 code=0 为成功，其他为失败 {"code":"0","msg":"成功","data":null}
      * 失败返回 无
      */
-    @ApiOperation(value = "用户退出（删除redis里的token）得把token放在请求头！",notes = " \"需要的参数：user的phone 和newPassword（token）\" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 \n" +
-            "模板：{\"newPassword\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1NjciLCJleHAiOjE2NzM3NjUzNDIsInVzZXJuYW1lIjoiMTIzNCJ9.OS87ol2X64kdkJVzvA8RWL5QEnKOdv0HzjWA8Di3VAs\"} newPassword即为token（登录以后返回的token）"+
-            " --失败->code为401, data为null，msg为未登录，条件为：电话号码为空；参数为空；newPassword（token）为空\"")
+    @ApiResponse(code = 0,message = "成功")
+    @ApiOperation(value = "用户退出（删除redis里的token）得把token放在请求头！",notes = "需要的参数：newPassword  即为token（登录以后返回的token）token得放请求头")
     @PostMapping("/logout")
     public Result<String> logout(HttpServletRequest request) {
         //request.getSession().setAttribute("user", null);
@@ -290,10 +297,11 @@ public class AccountController {
      * 成功返回 code=0 为成功，其他为失败 用户信息，{"code":"0","msg":"成功","data":{"password":"111111","newPassword":null,"userinfo":null,"sex":"男","age":null,"region":null,"phone":"15927614001","address":null,"userdate":"2022-12-18 23:53:06","identity":null,"level":1,"code":"13156","name":"user01","id":1}}
      * 失败返回 如 {"code":"401","msg":"未登录","data":null}
      */
-    @ApiOperation(value = "判断用户是否登录(并且获取用户信息)",notes = " \"需要的参数：User实体类的phone 和newPassword\" +\n" +
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息\n " +
-            "模板：{\"newPassword\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6IjEyMzQ1NiIsImV4cCI6MTY3MzU5NDA0MywidXNlcm5hbWUiOiIxMjM0In0.vxLsRSsCpiAoUzXtlGzo2peqKgQLCKBWpAx0H2lbWZs\",\"phone\": \"15119380977\"}"+
-            " --失败->code为401, data为null，msg为未登录，条件为：电话号码为空；参数为空；newPassword（token）为空\"")
+    @ApiResponses({
+            @ApiResponse(code = 0,message = "成功"),
+            @ApiResponse(code = 401,message = "由于参数错误/验证码过期或者未输入导致的未登录状态")
+    })
+    @ApiOperation(value = "判断用户是否登录(并且获取用户信息)",notes = "需要的参数：newPassword，phone")
     @PostMapping("/auth")
     public Result getAuth(@RequestBody User user) {
         //Object user = request.getSession().getAttribute("user");
@@ -317,12 +325,11 @@ public class AccountController {
      * 成功返回 code=0 为成功，其他为失败{"phone":"15927614999","type":"login"} "phone":手机号,"type":类型(login 为登陆时验证码，reg 为注册时验证码)
      * 失败返回 如 {"code":"401","msg":"未登录","data":null}
      */
-    @ApiOperation(value = "获取验证码",notes = " \"需要的参数：Sms实体类的phone 和type(注意手机号码的格式)" +
-            "type：login（登录），register（注册），resetPassword（重置密码），updatePhone（更换注册的手机号码）\" +\n" +
-            "模板：{\"phone\":\"15119380977\",\"type\":\"login\"}  type只有四种类型才是会发送验证码的：login：登录；  register：注册；  resetPassword：重置密码；  updatePhone：修改注册的手机号码；\n" +
-            "每次调用对应接口的所使用到的code都是需要使用对应的类型短信验证码"+
-            "            \"返回值：--成功->code为0，msg为成功 ，data为user的信息 " +
-            " --失败->code为401, data为null，msg为参数错误")
+    @ApiResponses({
+            @ApiResponse(code = 0,message = "成功"),
+            @ApiResponse(code = 401,message = "参数错误/验证码过期或者未输入")
+    })
+    @ApiOperation(value = "获取验证码",notes = "需要的参数：phone，type （type只有四种类型才是会发送验证码的：login：登录；  register：注册；  resetPassword：重置密码；  updatePhone：修改注册的手机号码；）")
     @PostMapping("send")
     public Result send(@RequestBody Sms jsonData){
 

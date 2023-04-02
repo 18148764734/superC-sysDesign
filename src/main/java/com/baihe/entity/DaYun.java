@@ -1,15 +1,29 @@
 package com.baihe.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("大运实体类(每十年一个大运)大运是一个区间")
 public class DaYun {
+    @ApiModelProperty(value = "第一个大运",dataType = "string")
     private String one;
+    @ApiModelProperty(value = "第二个大运",dataType = "string")
     private String two;
+    @ApiModelProperty(value = "第三个大运",dataType = "string")
     private String three;
+    @ApiModelProperty(value = "第四个大运",dataType = "string")
     private String four;
+    @ApiModelProperty(value = "第五个大运",dataType = "string")
     private String five;
+    @ApiModelProperty(value = "第六个大运",dataType = "string")
     private String six;
+    @ApiModelProperty(value = "第七个大运",dataType = "string")
     private String seven;
+    @ApiModelProperty(value = "第八个大运",dataType = "string")
     private String eight;
+    @ApiModelProperty(value = "第九个大运",dataType = "string")
     private String nine;
+    @ApiModelProperty(value = "第十个大运",dataType = "string")
     private String ten;
 
     public DaYun(){

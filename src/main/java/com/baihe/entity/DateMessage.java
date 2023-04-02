@@ -1,23 +1,44 @@
 package com.baihe.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 
+@ApiModel("通过年月获取的信息集合类")
 public class DateMessage {
 
+    @ApiModelProperty(value = "天（阳历）",dataType = "int")
     private int day;
+    @ApiModelProperty(value = "年（阳历）",dataType = "int")
     private int year;
+    @ApiModelProperty(value = "月（阳历）",dataType = "int")
     private int month;
+
+    @ApiModelProperty(value = "是否为周末",dataType = "boolean")
     private boolean isWeekend;
+
+    @ApiModelProperty(value = "当日的节气（如果没有返回null）",dataType = "string")
     private String jieQi;
+    @ApiModelProperty(value = "当日的假日（如果没有返回null）",dataType = "boolean")
     private String holiday;
+
+    @ApiModelProperty(value = "阴历日",dataType = "string")
     private String  yinLi;
+
+    @ApiModelProperty(value = "当日是星期几",dataType = "string")
     private String  xingQiDate;
+
+    @ApiModelProperty(value = "当日是否纪录日程（如果没有返回null）",dataType = "boolean")
     private boolean isDaily;
 
+    @ApiModelProperty(value = "当日的适合做的事情",dataType = "数组")
     private List<String> suitable;
 
+    @ApiModelProperty(value = "当日的不适合做的事情",dataType = "数组")
     private List<String> fear;
 
+    @ApiModelProperty(value = "阴历年月日",dataType = "数组")
     private String yinLiNianYueRi;
     public DateMessage(){
 
