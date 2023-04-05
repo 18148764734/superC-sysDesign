@@ -315,7 +315,7 @@ public class AccountController {
         if(!redistp.opsForValue().get("l"+user.getPhone()).equals(user.getNewPassword())){
             return Result.error("401", "未登录");
         }
-        return Result.success(user);
+        return Result.success(userInfoService.findByPhone(user.getPhone()));
     }
 
     /**
