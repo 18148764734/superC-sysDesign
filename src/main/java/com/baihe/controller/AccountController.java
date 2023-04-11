@@ -160,7 +160,7 @@ public class AccountController {
         //request.getSession().setAttribute("user", login);
         redistp.opsForValue().set("l"+login.getPhone(),login.getNewPassword(),30, TimeUnit.DAYS);//保存登陆状态1个月
 
-        return Result.success(login.getNewPassword(),login.getName());
+        return Result.successAddUserNameAndPhone(login.getNewPassword(),login.getName(),login.getPhone());
     }
 
     /**
@@ -212,7 +212,7 @@ public class AccountController {
 
         //request.getSession().setAttribute("user", login);
         redistp.opsForValue().set("l"+login.getPhone(),login.getNewPassword(),30, TimeUnit.DAYS);//保存登陆状态1个月
-        return Result.success(login.getNewPassword());
+        return Result.successAddUserNameAndPhone(login.getNewPassword(),login.getName(),login.getPhone());
     }
 
     /**

@@ -15,6 +15,9 @@ public class Result<T> {
 
     @ApiModelProperty("部分接口需要的返回用户名")
     private String username;
+
+    @ApiModelProperty("部分接口需要的返回手机号")
+    private String phone;
     private Result(T data) {
         this.data = data;
     }
@@ -40,7 +43,15 @@ public class Result<T> {
         Result<T> tResult = new Result<>(data);
         tResult.setCode(ResultCode.SUCCESS.code);
         tResult.setMsg(ResultCode.SUCCESS.msg);
+        return tResult;
+    }
+
+    public static <T> Result<T> successAddUserNameAndPhone(T data,String username,String phone) {
+        Result<T> tResult = new Result<>(data);
+        tResult.setCode(ResultCode.SUCCESS.code);
+        tResult.setMsg(ResultCode.SUCCESS.msg);
         tResult.setUsername(username);
+        tResult.setPhone(phone);
         return tResult;
     }
 
@@ -56,6 +67,14 @@ public class Result<T> {
         tResult.setCode(code);
         tResult.setMsg(msg);
         return tResult;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getUsername() {

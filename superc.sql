@@ -23,7 +23,18 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
-
+DROP TABLE IF EXISTS `history`;
+CREATE TABLE `history` (
+                           `history_id` char(20) COLLATE utf8mb4_general_ci NOT NULL  COMMENT 'ID',
+                           `user_phone` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户手机号',
+                           `subject_bazi` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户八字',
+                           `user_name` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '用户名字',
+                           `history_type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '决策类型',
+                           `history_time` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '决策时间',
+                           `history_data` MEDIUMTEXT COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '历史信息'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='历史表' ROW_FORMAT=DYNAMIC;
+ALTER TABLE `history`
+    ADD PRIMARY KEY (`history_id`) USING BTREE;
 --
 -- 表的结构 `sms`
 --

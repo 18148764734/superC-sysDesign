@@ -11,10 +11,12 @@ import com.baihe.utils.liunianmethods.Lunar;
 import com.baihe.utils.liunianmethods.Solar;
 import com.baihe.vo.LunarVo;
 import com.baihe.vo.UserVo;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Test01 {
@@ -52,6 +54,7 @@ public class Test01 {
         for (String allList : LiuNianUtil.getBaZi(2002, 2, 2, 2)) {
             System.out.println(allList);
         }
+        System.out.println();
     }
 
 
